@@ -12,17 +12,11 @@ Minimal CyberArk SSH with MFA helper for WSL.
 Clone the repository and install the commands in your WSL user environment:
 
 ```bash
-git clone <your-repo-url>
+git clone git@github.com:tomdrm/ca-bee.git
 cd ca-bee
-sudo dnf install -y python3-wheel
 python3 -m pip install --user .
 ```
 
-If you update the source later, run this again:
-
-```bash
-python3 -m pip install --user .
-```
 
 If `pip install` fails because build tooling is missing, run this once and retry:
 
