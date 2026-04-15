@@ -22,7 +22,7 @@ If `pip install` fails because build tooling is missing, run this once and retry
 
 ```bash
 python3 -m ensurepip --upgrade
-sudo dnf install -y python3-wheel
+python3 -m pip install --user --upgrade pip setuptools wheel
 ```
 
 Make sure `~/.local/bin` is on your `PATH`:
@@ -44,9 +44,9 @@ Example:
 ```bash
 CARK_USERNAME=<username>
 CARK_AUTH_TYPE=RADIUS
-CARK_PLATFORM_ACCOUNT=<admin3>
-CARK_PROXY_HOST=<psmp-vip>
-CARK_DEFAULT_DOMAIN=<domain.lt>
+CARK_PLATFORM_ACCOUNT=<platform-account>
+CARK_PROXY_HOST=<proxy-host>
+CARK_DEFAULT_DOMAIN=<domain>
 CARK_BASE_URL=https://<cyberark-url>/PasswordVault/API
 CARK_MFA_CACHE_KEY_PATH=~/.ssh/psm_mfa_cache.key
 CARK_MFA_CACHE_KEY_FORMAT=OpenSSH
@@ -55,6 +55,7 @@ CARK_MFA_CACHE_KEY_FORMAT=OpenSSH
 Notes:
 
 - `CARK_BASE_URL` is required.
+- `CARK_PLATFORM_ACCOUNT`, `CARK_PROXY_HOST`, and `CARK_DEFAULT_DOMAIN` are required.
 - Do not store your password in the config file.
 - `ca-login` prompts for the password and RADIUS challenge responses.
 - `CARK_DEFAULT_DOMAIN` is used for short target hostnames and also for a short `CARK_PROXY_HOST`.
@@ -95,7 +96,7 @@ ca srv-example.domain.lt
 The final SSH target format is:
 
 ```text
-username@admin3@<server-fqdn>@<proxy-fqdn>
+username@<platform-account>@<server-fqdn>@<proxy-fqdn>
 ```
 
 If the cached key is missing, run `ca-login` first.
