@@ -5,7 +5,7 @@ Minimal CyberArk SSH with MFA helper for WSL.
 ## What It Does
 
 1. `ca-login` authenticates to CyberArk with RADIUS and refreshes the MFA caching SSH key.
-2. `ca <hostname>` connects through the CyberArk PSM hop using that cached key.
+2. `ca <hostname>` connects through the CyberArk PSMP hop using that cached key.
 
 ## GitHub Setup
 
