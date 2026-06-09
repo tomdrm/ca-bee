@@ -4,7 +4,9 @@ import json
 import os
 import subprocess
 import sys
+from datetime import datetime
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 import requests
 import urllib3
@@ -60,6 +62,20 @@ load_config_file()
 
 def get_username():
   return (os.environ.get("CARK_USERNAME") or os.environ.get("USER") or "").strip()
+
+
+def format_expiration_time(expiration_time):
+  if expiration_time in (None, ""):
+    return None
+
+  try:
+    unix_seconds = int(str(expiration_time).strip())
+  except (TypeError, ValueError):
+    return str(expiration_time)
+
+  display_tz = (os.environ.get("CARK_DISPLAY_TZ") or "Europe/Vilnius").strip() or "Europe/Vilnius"
+  local_time = datetime.fromtimestamp(unix_seconds, tz=ZoneInfo(display_tz))
+  return f"{local_time.strftime('%Y-%m-%d %H:%M:%S %Z')} ({display_tz}, unix: {unix_seconds})"
 
 
 def get_pvwa_base_url():
@@ -204,7 +220,7 @@ def print_ca_help():
   print("")
   print("Behavior:")
   print("- Uses the private key from ~/.ssh/psm_mfa_cache.key by default")
-  print("- Uses the configured CyberArk account, such as admin3")
+  print("- Uses the configured CyberArk account")
   print("- Appends CARK_DEFAULT_DOMAIN to short target and proxy hostnames")
   print("")
   print("Examples:")
@@ -271,7 +287,7 @@ def ca_login_main():
 
   print(f"Saved MFA caching SSH key to {key_path}")
   if expiration_time:
-    print(f"Key expiration time: {expiration_time}")
+    print(f"Key expiration time: {format_expiration_time(expiration_time)}")
 
 
 def main():

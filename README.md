@@ -50,6 +50,7 @@ CARK_DEFAULT_DOMAIN=<domain>
 CARK_BASE_URL=https://<cyberark-url>/PasswordVault/API
 CARK_MFA_CACHE_KEY_PATH=~/.ssh/psm_mfa_cache.key
 CARK_MFA_CACHE_KEY_FORMAT=OpenSSH
+CARK_DISPLAY_TZ=Europe/Vilnius
 ```
 
 Notes:
@@ -59,6 +60,7 @@ Notes:
 - Do not store your password in the config file.
 - `ca-login` prompts for the password and RADIUS challenge responses.
 - `CARK_DEFAULT_DOMAIN` is used for short target hostnames and also for a short `CARK_PROXY_HOST`.
+- `ca-login` prints key expiration in `CARK_DISPLAY_TZ` (defaults to `Europe/Vilnius`, EEST/EET as applicable).
 - If your Vault rejects concurrent RADIUS sessions, add `CARK_CONCURRENT_SESSIONS=false`.
 
 ## Daily Usage
